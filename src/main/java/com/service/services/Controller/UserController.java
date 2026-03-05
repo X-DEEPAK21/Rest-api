@@ -38,11 +38,7 @@ public class UserController {
     }
 
     //Testing purpose only
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id){
-        userService.getServiceProvidersRepo().deleteById(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body("deleted successfully");
-    }
+
 
 
 
