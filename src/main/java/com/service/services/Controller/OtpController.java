@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/otp")
-@RequiredArgsConstructor
 public class OtpController {
 
+    @Autowired
     SmsService smsService;
 
     @PostMapping("/send")

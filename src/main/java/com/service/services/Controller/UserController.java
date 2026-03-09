@@ -1,6 +1,7 @@
 package com.service.services.Controller;
 
 import com.service.services.Entity.ServiceProviders;
+import com.service.services.RequestDtos.LoginRequestDto;
 import com.service.services.RequestDtos.RegisterRequestDto;
 import com.service.services.ResponseDtos.RegistrationResponseDto;
 import com.service.services.Service.UserService;
@@ -37,8 +38,16 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.CREATED).body(registerResponseDto);
     }
 
-    //Testing purpose only
+    //security Details addition after the
+    public ResponseEntity<?>loginUser(@RequestBody LoginRequestDto loginRequestDto){
+       return ResponseEntity.ok("Deepak");
+    }
 
+
+   /* @GetMapping("/profile")
+    public ResponseEntity<?>getProfile(){
+
+    }*/
 
 
 

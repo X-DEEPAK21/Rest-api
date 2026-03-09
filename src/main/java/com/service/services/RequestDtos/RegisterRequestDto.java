@@ -5,6 +5,7 @@ import com.service.services.Entity.Gender;
 import com.service.services.Entity.Location;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -14,7 +15,7 @@ import java.util.Set;
 public class RegisterRequestDto {
     @NotBlank(message = "Name cannot be blank")
     String full_name;
-    @NotBlank(message = "phone cannot be blank")
+    @Pattern(regexp = "^[0-9]{10}$", message = "Phone must be exactly 10 digits")
     String phone;
     String email;
     Gender gender;

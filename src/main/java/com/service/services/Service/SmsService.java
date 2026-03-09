@@ -3,6 +3,7 @@ package com.service.services.Service;
 import com.service.services.RequestDtos.SmsRequest;
 import com.service.services.ResponseDtos.OtpResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +12,12 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
-@RequiredArgsConstructor
 public class SmsService {
 
+    @Autowired
     Fast2SmsClient fast2SmsClient;
 
-    @Value("{sms.fast2sms.api-key}")
+    @Value("${sms.fast2sms.api-key}")
     private String apiKey;
 
     private final Map<String, String> otpStore = new ConcurrentHashMap<>();
@@ -32,12 +33,7 @@ public class SmsService {
                 .language("english")
                 .build();
 
-        fast2SmsClient.sendSms(
-                apiKey,                                 // authorization header
-                "application/json",                     // accept header
-                "application/json",                     // content-type header
-                smsRequest
-        );
+        fast2SmsClient.sendSms(apiKey, smsRequest);
 
         otpStore.put(phone, otp);
 

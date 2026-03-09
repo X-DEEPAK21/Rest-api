@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 @FeignClient(name = "fast2sms", url = "${sms.fast2sms.base-url}")
 public interface Fast2SmsClient {
 
-    @PostMapping("/bulkV2")
-    String sendSms(
-            @RequestHeader("authorization") String apiKey,
-            @RequestHeader("accept")        String accept,
-            @RequestHeader("content-type")  String contentType,
-            @RequestBody SmsRequest smsRequest
-    );
+    @PostMapping(value = "/bulkV2",
+    consumes = "application/json",
+    produces = "application/json"
+            )
+    String sendSms(@RequestHeader("Authorization") String apiKey, @RequestBody SmsRequest smsRequest);
 
 
 }
