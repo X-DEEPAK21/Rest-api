@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -26,7 +27,7 @@ public class RegisterRequestDto {
     Integer experience;
     String workDescription;
     //Location
-    Location location;
+    List<String> location;
     //Verification
     @NotBlank(message = "password cannot be blank")
     @Size(min = 6)

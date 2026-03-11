@@ -9,6 +9,7 @@ import java.util.Set;
 @Data
 public class RegistrationResponseDto {
 
+
     String full_name;
     String phone;
     String email;

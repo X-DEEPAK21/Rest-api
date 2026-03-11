@@ -11,6 +11,7 @@ import java.util.Set;
         indexes = {
                 @Index(name = "idx_state", columnList = "State"),
                 @Index(name = "idx_district", columnList = "district"),
+                @Index(name = "idx_block",columnList ="block" ),
                 @Index(name = "idx_village", columnList = "village")
         })
 @Getter

@@ -3,8 +3,12 @@ package com.service.services.Entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 @Builder
 @Setter
@@ -47,6 +51,10 @@ public class ServiceProviders {
        // when admin took action
     @Column(name = "is_active")
     private boolean isActive = true;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    @Column(name = "is_verified")
+    private boolean isVerified=true;
     @Column(length = 255)
     private String rejectionReason;
     private LocalDateTime reviewedAt;

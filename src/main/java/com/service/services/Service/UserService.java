@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,9 @@ public class UserService {
     @Autowired
     ModelMapper modelMapper;
     @Autowired
-    LocationRepo locationRepo;
+    LocationService locationService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Transactional
     public ServiceProviders createUser(RegisterRequestDto registerRequestDto) {
@@ -41,8 +44,12 @@ public class UserService {
         if (getProviders.isPresent()) {
             throw new PhoneAlreadyExist("Phone number already Register");
         }
-        log.info("save the location first");
-        Location location = this.saveLocation(registerRequestDto.getLocation());
+        List<String> location=registerRequestDto.getLocation();
+        String state   = location.get(0);
+        String district = location.get(1);
+        String block   = location.get(2);
+        String village = location.get(3);
+       Location location1= locationService.saveLocation(state,district,block,village);
 
         log.info("find the category to get injected to the actual Entity");
         List<Category> categoryList = categoryRepo.findAllByIdIn(registerRequestDto.getCategories_ids());
@@ -51,24 +58,14 @@ public class UserService {
         HashSet<Category> categoryHashSet = new HashSet<>();
         categoryHashSet.addAll(categoryList);
         serviceProviders.setCategories(categoryHashSet);
-        serviceProviders.setLocation(location);
+        serviceProviders.setLocation(location1);
+        serviceProviders.setPassword(this.passwordEncoder.encode(registerRequestDto.getPassword()));
         //password hashing Required
         return serviceProvidersRepo.save(serviceProviders);
 
     }
 
-    public Location saveLocation(Location location) {
-        log.info("find the location according the user location");
-        Optional<Location> optional = locationRepo.findByStateAndDistrictAndBlockAndVillage(location.getState(), location.getDistrict()
-                , location.getBlock(), location.getVillage());
-        if (optional.isPresent()) {
-            log.info("already present so return ");
-            return optional.get();
-        }
-        log.info("creating new Location");
-        return locationRepo.save(Location.builder().State(location.getState()).district(location.getDistrict())
-                .block(location.getBlock()).village(location.getVillage()).build());
-    }
+
 
     public ServiceProviders findByPhone(String phone) {
         log.info("try to find the user by phone number ");

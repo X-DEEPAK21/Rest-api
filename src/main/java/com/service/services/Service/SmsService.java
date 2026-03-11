@@ -1,11 +1,13 @@
 package com.service.services.Service;
 
+import com.service.services.Exception.PhoneNotExist;
 import com.service.services.RequestDtos.SmsRequest;
 import com.service.services.ResponseDtos.OtpResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.Map;
 import java.util.Random;
@@ -59,6 +61,7 @@ public class SmsService {
                 .message("Invalid or expired OTP")
                 .build();
     }
+
 
 
 }
