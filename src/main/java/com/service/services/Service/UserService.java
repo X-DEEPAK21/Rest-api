@@ -66,7 +66,6 @@ public class UserService {
     }
 
 
-
     public ServiceProviders findByPhone(String phone) {
         log.info("try to find the user by phone number ");
         Optional<ServiceProviders> optional = serviceProvidersRepo.findByPhone(phone);
@@ -76,12 +75,13 @@ public class UserService {
         }
         return optional.get();
     }
-    // public LoginResponseDto loginUser(){
-    //security call as well jwt verify all service implement here
-    //  }
+    public ServiceProviders findById(Long id){
+        ServiceProviders optional=serviceProvidersRepo.findById(id).get();
+        return optional;
+    }
 
-    public ProfileResponseDto getProfile(String phone) {
-        ServiceProviders serviceProviders = this.findByPhone(phone);
+    public ProfileResponseDto getProfile(Long id) {
+        ServiceProviders serviceProviders = this.findById(id);
         log.info("map to the profile Response Dto");
         ProfileResponseDto profileResponseDto = modelMapper.map(serviceProviders, ProfileResponseDto.class);
         profileResponseDto.setCategories_name(serviceProviders.getCategories().stream()
@@ -90,6 +90,7 @@ public class UserService {
                 }).collect(Collectors.toSet()));
         Location location=serviceProviders.getLocation();
         List<String> locations= Arrays.asList(location.getState(),location.getDistrict(),location.getBlock(),location.getVillage());
+        log.info("mapping to the locations to the response dto");
         profileResponseDto.setLocation(locations);
         return profileResponseDto;
     }
