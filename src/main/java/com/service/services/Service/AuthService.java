@@ -3,7 +3,7 @@ package com.service.services.Service;
 import com.service.services.Entity.ServiceProviders;
 import com.service.services.Repository.ServiceProvidersRepo;
 import com.service.services.RequestDtos.LoginRequestDto;
-import com.service.services.RequestDtos.LoginResponseDto;
+import com.service.services.ResponseDtos.LoginResponseDto;
 import com.service.services.SpringSecurity.Token;
 import com.service.services.SpringSecurity.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;

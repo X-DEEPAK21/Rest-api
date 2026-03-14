@@ -26,7 +26,6 @@ public class UserController {
      ProfileResponseDto profileResponseDto= userService.getProfile(userId);
      return ResponseEntity.status(HttpStatus.FOUND).body(profileResponseDto);
     }
-
-    public
+    //// service providers update email and user category also
 
 }

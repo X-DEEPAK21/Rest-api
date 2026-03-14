@@ -1,4 +1,4 @@
-package com.service.services.RequestDtos;
+package com.service.services.ResponseDtos;
 
 import lombok.Builder;
 import lombok.Data;
