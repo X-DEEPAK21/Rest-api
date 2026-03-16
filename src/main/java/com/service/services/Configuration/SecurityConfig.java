@@ -20,7 +20,7 @@ public class SecurityConfig {
     JwtVerify jwtVerify;
 
     private static final String[] publicRoutes = {
-            "/auth/**","/otp/**"
+            "/auth/**","/otp/**","/get/**"       // "/get used for testing purpose"
     };
 
     @Bean

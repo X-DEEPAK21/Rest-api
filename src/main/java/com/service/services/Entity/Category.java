@@ -1,5 +1,6 @@
 package com.service.services.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +20,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String name;
-    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories",fetch = FetchType.LAZY)
     private List<ServiceProviders> serviceProvidersSet;
 
     public Category(String name) {
