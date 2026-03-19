@@ -9,6 +9,7 @@ import com.service.services.ServiceDtos.ServiceProvidersDto;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,29 +33,10 @@ public class AllService {
     ModelMapper modelMapper;  //always need no args Constructor
     @Autowired
     UniversalMapping universalMapping;
-
-    //Test only
-     public Page<ServiceProviders>  checkRepositoryMethods(){
-         int page=0;
-         int size=10;
-         Pageable pageable = PageRequest.of(page, size);
-       Page<ServiceProviders> serviceProviders=
-            serviceProvidersRepo.findByCategories_NameAndLocation_State("Electrician","Odisha",pageable);
-         return serviceProviders;
-     }
-     //Test Only
-    public Page<ServiceProviders>  checkRepositoryMethods2(){
-        int page=0;
-        int size=10;
-        Pageable pageable = PageRequest.of(page, size);
-        Page<ServiceProviders> serviceProviders=
-                serviceProvidersRepo.findByCategories_NameAndLocation_StateAndLocation_DistrictAndLocation_BlockAndLocation_Village(
-                        "Painter","Odisha","Keonjhar","Anandapur","Kodapada",pageable
-                );
-        return serviceProviders;
-    }
+    private static final String CACHE_NAME="category";
 
     //findBy Categories name only
+    @Cacheable(cacheNames = CACHE_NAME,key = "#category")
     @Transactional
     public PageResponse findByCategoriesName(String category, int page, int size){
          log.info("try to find serviceProviders by category name {}",category);
@@ -65,9 +47,8 @@ public class AllService {
        log.info("map successful lets return response in the response Entity");
 
        return pageResponse;
-
-
     }
+
 
 
 

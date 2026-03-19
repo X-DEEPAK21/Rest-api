@@ -2,6 +2,7 @@ package com.service.services.SpringSecurity;
 
 import com.service.services.Entity.ServiceProviders;
 import com.service.services.Repository.ServiceProvidersRepo;
+import com.service.services.Service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ public class JwtVerify extends OncePerRequestFilter {
     @Autowired
     Token token_class;
     @Autowired
-    ServiceProvidersRepo serviceProvidersRepo;
+    UserService userService;
     @Autowired
     @Qualifier("handlerExceptionResolver")
     private HandlerExceptionResolver handlerExceptionResolver;
@@ -39,7 +40,7 @@ public class JwtVerify extends OncePerRequestFilter {
             Long id = token_class.getUserIdFromToken(token);
             //Exception Handling Required
             if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                ServiceProviders user1 = serviceProvidersRepo.findById(id).orElseThrow();
+                ServiceProviders user1 = userService.findById(id);
                 if (user1.isActive() == false) {
                     throw new LockedException("User is Blocked");
                 }

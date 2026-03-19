@@ -10,6 +10,8 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "locations",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"state","district","block","village"}),
         indexes = {
                 @Index(name = "idx_state", columnList = "state"),
                 @Index(name = "idx_district", columnList = "district"),
@@ -39,3 +41,8 @@ public class Location {
    Set<ServiceProviders> serviceProviders;
 
 }
+
+/*@Index(
+    name = "idx_location_all",        this is fast composite index but allow only with the correct order
+    columnList = "state,district,block,village"
+)*/
