@@ -19,17 +19,5 @@ public class ServiceController {
     @Autowired
     AllService allService;
 
-    @GetMapping("/al")
-    public Page<ServiceProviders> getServicers(){
-    return allService.checkRepositoryMethods();
-    }
-    @GetMapping("/ax")
-    public Page<ServiceProviders> getServicers2(){
-        return allService.checkRepositoryMethods2();
-    }
-     @GetMapping("/user")
-    public ResponseEntity<?>getServicersByCategoryName(@RequestParam String category,@RequestParam int page,@RequestParam int size){
-       PageResponse pageResponse= allService.findByCategoriesName(category,page,size);
-       return ResponseEntity.status(HttpStatus.OK).body(pageResponse);
-    }
+
 }
