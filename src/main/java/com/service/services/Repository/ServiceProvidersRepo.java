@@ -20,6 +20,8 @@ public interface ServiceProvidersRepo extends JpaRepository<ServiceProviders,Lon
 
     Page<ServiceProviders> findByLocation_District(String district, Pageable pageable);
 
+    Page<ServiceProviders> findByLocation_Block(String block, Pageable pageable);
+
     Page<ServiceProviders> findByLocation_Village(String village, Pageable pageable);
 //// skill categories methods
     Page<ServiceProviders> findByCategories_Name(String category, Pageable pageable);
