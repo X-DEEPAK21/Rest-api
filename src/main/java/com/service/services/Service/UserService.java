@@ -54,7 +54,8 @@ public class UserService {
         String district = location.get(1);
         String block   = location.get(2);
         String village = location.get(3);
-       Location location1= locationService.findLocation(state,district,block,village);
+        log.info("get the location successful");
+      // Location location1= locationService.findLocation(state,district,block,village);
 
         log.info("find the category to get injected to the actual Entity");
         List<Category> categoryList = categoryService.categoryListByIds(registerRequestDto.getCategories_ids());
@@ -63,7 +64,7 @@ public class UserService {
         HashSet<Category> categoryHashSet = new HashSet<>();
         categoryHashSet.addAll(categoryList);
         serviceProviders.setCategories(categoryHashSet);
-        serviceProviders.setLocation(location1);
+       // serviceProviders.setLocation(location1);
         serviceProviders.setPassword(this.passwordEncoder.encode(registerRequestDto.getPassword()));
         return serviceProvidersRepo.save(serviceProviders);
     }

@@ -24,11 +24,14 @@ public class LocationService {
         log.info("find the location according the user location and hitting db");
         Optional<Location> optional = locationRepo.findByStateAndDistrictAndBlockAndVillage(state,district,block,village);
         if(optional.isEmpty()){
-            log.info("location not found save the location inside the db  ");
-            return locationRepo.save(Location.builder().state(state).district(district)
+             Location location= (Location.builder().state(state).district(district)
                     .block(block)
                     .village(village).build());
+            log.info("location not found save the location inside the db  ");
+            return locationRepo.save(location);
+
         }
+        log.info("return of the optional.get null values");
         return optional.get();
     }
 

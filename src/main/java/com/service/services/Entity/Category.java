@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +19,8 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Category {
+public class Category implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
@@ -26,7 +28,7 @@ public class Category {
     String name;
     @JsonIgnore
     @ManyToMany(mappedBy = "categories",fetch = FetchType.LAZY)
-    private List<ServiceProviders> serviceProvidersSet;
+    private List<ServiceProviders> serviceProvidersList;
 
     public Category(String name) {
         this.name = name;

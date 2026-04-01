@@ -2,15 +2,18 @@ package com.service.services.Service;
 
 import com.service.services.Entity.Category;
 import com.service.services.Repository.CategoryRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
+@Slf4j
 @Service
-public class CategoryService {
+public class CategoryService  {
     @Autowired
     CategoryRepo categoryRepo;
     private static final String CACHE_NAME = "category";
@@ -22,6 +25,8 @@ public class CategoryService {
     )
     public List<Category> categoryListByIds(Set<Long> ids){
         List<Category> categories=categoryRepo.findAllByIdIn(ids);
+        log.info("find successful all the categories");
+        System.out.println(categories);
         return categories;
     }
 }

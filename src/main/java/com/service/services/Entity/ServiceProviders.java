@@ -8,6 +8,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "service_providers")
-public class ServiceProviders {
+public class ServiceProviders implements Serializable {
     //personal info
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
