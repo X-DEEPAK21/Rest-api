@@ -61,7 +61,8 @@ public class AllService {
         log.info("map successful lets return the controller ");
         return pageResponse;
      }
-
+    @Cacheable(cacheNames =CACHE_NAME2,key="{#state,#district,#page,#size}",unless = "#result == null")
+    @Transactional
      public  PageResponse findByStateAndDistrictName(String state,String district,int page,int size){
         log.info("try to find the service providers based on the state: {} and district: {}",state,district);
         Pageable pageable=PageRequest.of(page,size);
@@ -72,6 +73,8 @@ public class AllService {
        return pageResponse;
      }
 
+    @Cacheable(cacheNames =CACHE_NAME3,key="{#state,#district,#block,#page,#size}",unless = "#result == null")
+    @Transactional
     public  PageResponse findByStateAndDistrictAndBlockName(String state,String district,String block,int page,int size){
         log.info("try to find the service providers based on the state: {},district: {},block: {}",state,district,block);
         Pageable pageable=PageRequest.of(page,size);
@@ -84,6 +87,7 @@ public class AllService {
         return pageResponse;
     }
 
+    @Cacheable(cacheNames =CACHE_NAME4,key ="{#state,#district,#block,#village,#page,#size}",unless = "#result == null")
     public  PageResponse findByStateAndDistrictAndBlockAndVillageName(String state,String district,String block,String village,int page,int size){
         log.info("try to find the service providers based on the state: {},district: {},block: {},village: {}",state,district,block,village);
         Pageable pageable=PageRequest.of(page,size);
