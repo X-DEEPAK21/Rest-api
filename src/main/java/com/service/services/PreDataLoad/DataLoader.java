@@ -7,24 +7,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class DataLoader implements CommandLineRunner {
     @Autowired
     CategoryRepo categoryRepo;
+
     @Override
     public void run(String... args) throws Exception {
-     if(categoryRepo.count()==0){
-         categoryRepo.save(new Category("Plumber"));
-         categoryRepo.save(new Category("Electrician"));
-         categoryRepo.save(new Category("Painter"));
-         categoryRepo.save(new Category("AC Technician"));
-         categoryRepo.save(new Category("Mechanic"));
-         categoryRepo.save(new Category("House Cleaner"));
-         categoryRepo.save(new Category("Gardener"));
-         categoryRepo.save(new Category("CCTV Technician"));
+        if (categoryRepo.count() == 0) {
+            List<Category> categories = Arrays.asList(
+                            "Plumber", "Electrician", "Carpenter", "Painter", "AC Technician",
+                            "Mechanic", "Mason", "Welder", "House Cleaner", "Pest Control",
+                            "Gardener", "CCTV Technician", "Appliance Repair", "Locksmith",
+                            "Interior Designer", "Roofer", "Tiling & Flooring Expert",
+                            "Water Tank Cleaner", "Solar Panel Installer", "Smart Home Technician",
+                            "Upholstery Cleaner", "Gutter Maintenance"
+                    ).stream()
+                    .map(Category::new)//new Categories("each_string")
+                    .collect(Collectors.toList());
 
-     }
-    }
+            // saveAll() is more efficient than multiple save() calls
+            categoryRepo.saveAll(categories);
+        }
 
     /*
     ('Plumber'),
@@ -39,5 +47,7 @@ public class DataLoader implements CommandLineRunner {
 ('Pest Control'),
 ('Gardener'),
 ('CCTV Technician');
+
      */
+    }
 }

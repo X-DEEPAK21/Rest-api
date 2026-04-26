@@ -21,7 +21,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/profile")
+    @GetMapping("/get-profile")
     @PreAuthorize("hasRole('USER')")//// automatic add the prefix ROLE_
     public ResponseEntity<ProfileResponseDto> getUserProfile(){
         log.info("request reached at the controller ");
