@@ -78,6 +78,7 @@ public class AllService {
        return pageResponse;
      }
 
+     @Retry(name = "",fallbackMethod = "")
     @Cacheable(cacheNames =CACHE_NAME3,key="{#state,#district,#block,#page,#size}",unless = "#result == null")
     @Transactional
     public  PageResponse findByStateAndDistrictAndBlockName(String state,String district,String block,int page,int size){
